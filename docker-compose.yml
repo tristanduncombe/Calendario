@@ -1,0 +1,33 @@
+version: "3.3"
+
+services:
+  mysql:
+    image: mariadb:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: MyDBRoot123
+      MYSQL_DATABASE: cloud_computing
+      MYSQL_USER: php
+      MYSQL_PASSWORD: php
+    networks:
+      - mynet
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "8080:8080"
+  
+
+
+networks:
+  mynet:
+    driver: bridge
