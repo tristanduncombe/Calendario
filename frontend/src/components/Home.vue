@@ -1,11 +1,13 @@
 <template>
   <v-container>
-    <v-row class="homeImage">
-      <img
+    <v-row class="homeImage d-flex">
+      <v-container>
+        <img
         src='../assets/home_1.jpg'
-        class="my-n12"
+        class="my-n12 mx-auto justify-center"
         contain
-        />      
+        />    
+      </v-container>
     </v-row>
     
     <v-row>
@@ -39,7 +41,7 @@
           </v-sheet>
             
         </v-col>
-        <v-cols cols="4">
+        <v-cols cols="6">
           <v-sheet class="centerColumn mt-2 ml-12 justify-center" width="600" height="600">
             <v-div class="text-h4 mb-12">
               life right now
@@ -63,6 +65,8 @@
                 sort-by="date"
                 :items-per-page="5"
                 class="elevation-1"
+                :page.sync="page"
+                hide-default-footer
               >
               <template v-slot:header.complete>
                 <v-icon>
@@ -74,12 +78,19 @@
                   v-model="item.complete"
                 ></v-simple-checkbox>
               </template>
+              <v-pagination
+                v-model="page"
+                :length="pageCount"
+              ></v-pagination>
               </v-data-table>
             </div>
           </v-sheet>
         </v-cols>
         <v-col cols="3">
 
+        </v-col>
+        <v-col col="12">
+          footer!
         </v-col>
       </v-row>
     </v-row>
