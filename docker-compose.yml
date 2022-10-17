@@ -6,17 +6,23 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: MyDBRoot123
-      MYSQL_DATABASE: cloud_computing
+      MYSQL_DATABASE: ./db
       MYSQL_USER: php
       MYSQL_PASSWORD: php
     networks:
       - mynet
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      - "443:443"
 
+  phpMyAdmin:
+    image: phpmyadmin:latest
+    container_name: phpMyAdmin
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+    ports:
+      - "8080:80"
+    networks:
+      - mynet
 
   frontend:
     build:
@@ -24,10 +30,14 @@ services:
       dockerfile: Dockerfile
     container_name: frontend
     ports:
-      - "8080:8080"
-  
-
-
+      - "80:80"
+  backedn:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "9000:80"
 networks:
   mynet:
     driver: bridge
