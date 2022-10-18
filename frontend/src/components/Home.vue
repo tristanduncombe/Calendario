@@ -157,9 +157,8 @@
         absolute
         elevate-on-scroll
       >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
-        <v-toolbar-title v-text="greeting + ', ' + usersname + '! '"></v-toolbar-title>
+        <v-icon class="mr-1">mdi-calendar</v-icon> <div class="text-h5">Calendario</div> 
+        <v-toolbar-title class="ml-4" v-text="greeting + ', ' + usersname + '! '"></v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -177,13 +176,18 @@
             </v-list-item>
             <v-list-item>
               <v-btn @click="logout()">
+                <v-icon class="mr-1">mdi-calendar</v-icon> Customise Calendar 
+              </v-btn>
+            </v-list-item>
+            <v-list-item>
+              <v-btn @click="logout()">
                 Logout
               </v-btn>
             </v-list-item>
           </v-list>
         </v-menu>
       </v-app-bar>
-      <v-sheet class="pb-6 mb-6">
+      <v-sheet class="pb-6 mb-n3">
         <v-container style="height: 1500px;">
           <v-img
           class="mx-auto"
