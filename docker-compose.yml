@@ -6,7 +6,7 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: MyDBRoot123
-      MYSQL_DATABASE: ./db
+      MYSQL_DATABASE: ./db/database.sql
       MYSQL_USER: php
       MYSQL_PASSWORD: php
     networks:

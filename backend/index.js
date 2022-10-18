@@ -10,20 +10,20 @@ app.get("/", (request, response) => {
 app.get("/users/", (request, response) => {
   response.send("users");
 });
-app.get("/login/:email/:password/", async (req: request, res: response) => {
-  try {
-    //get if username matches
-    username = true;
-    //get if password matches
-    password = true;
+// app.get("/login/:email/:password/", async (req: request, res: response) => {
+//   try {
+//     //get if username matches
+//     username = true;
+//     //get if password matches
+//     password = true;
 
-    if (username & password) {
-      res.json(true);
-    } else {
-      res.json(false);
-    }
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-});
+//     if (username & password) {
+//       res.json(true);
+//     } else {
+//       res.json(false);
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     res.sendStatus(500);
+//   }
+// });
