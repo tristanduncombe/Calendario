@@ -356,9 +356,7 @@
         this.loginPopup = true;
       },
       changeMode(mode) {
-        if (isLocalStorage) {
-          localStorage.setItem('infs3208_dark_mode', mode ? 'true' : 'false');
-        }
+        localStorage.setItem('infs3208_dark_mode', mode ? 'true' : 'false');
       },
       // async getUsers() {
       //   console.log(await axios.get('/users/'))
