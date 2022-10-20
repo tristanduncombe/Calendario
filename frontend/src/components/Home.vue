@@ -18,10 +18,13 @@
             Open Dialog
           </v-btn>
         </template>
-        <v-card>
-          <v-card-title class="text-h5 text-center font-weight-black mx-12 my-12">
-          <div>SIGN</div> <div class="mx-2 text--red">IN</div>
+        <v-card class="">
+          <v-card-title class="d-flex justify-center my-12">
+            <v-icon class="mr-1">mdi-calendar</v-icon> <div class="text-h5">Calendario</div> 
           </v-card-title>
+          <v-card-subtitle class="mb-3">
+            Sign in to use our platform!
+          </v-card-subtitle>
           <v-card-actions>
             <v-text-field
               v-model="email"
@@ -32,15 +35,15 @@
           <v-card-actions>
             <v-text-field
               v-model="password"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
               :rules="[rules.required, rules.min]"
-              :type="show1 ? 'text' : 'password'"
+              :type="show ? 'text' : 'password'"
               name="input-10-1"
               label="Enter Password"
               hint="At least 8 characters"
               counter
               solo
-              @click:append="show1 = !show1"
+              @click:append="show = !show"
             ></v-text-field>
           </v-card-actions>
           <v-card-actions>
@@ -58,12 +61,10 @@
             
             <v-spacer></v-spacer>
             <v-btn
-              :loading="loading4"
-              :disabled="loading4"
               color="info"
               large
               block
-              @click="loader = 'loading4' && login(email, password, storeHash)"
+              @click="login(email, password, storeHash)"
             >
               SIGN IN
               <template v-slot:loader>
@@ -87,9 +88,9 @@
         class="hidescrollbar"
       >
         <v-card>
-          <v-card-title class="text-h5 font-weight-black mx-12 my-6">
-          <v-btn class="mr-2"><v-icon @click="signupPopup = false">mdi-arrow-left</v-icon></v-btn>
-          <div>SIGN UP</div>
+          <v-card-title class="text-h5 my-6">
+          <v-btn class="mr-2 align-left"><v-icon @click="signupPopup = false">mdi-arrow-left</v-icon></v-btn>
+          <div class="align-center">Sign up</div>
           </v-card-title>
           <v-card-text>
             To use our platform you need to create an account. This account is used to store the data which we use to create this service. No personal data is stored nor is any data collected whatsoever.
@@ -117,7 +118,7 @@
             <v-text-field
               v-model="password1"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.required, rules.min, rules.email]"
+              :rules="[rules.required, rules.min]"
               :type="show1 ? 'text' : 'password'"
               name="input-10-1"
               label="Enter Password"
@@ -130,15 +131,15 @@
           <v-card-actions>
             <v-text-field
               v-model="password2"
-              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-              :rules="[rules.required, rules.min, rules.email]"
-              :type="show1 ? 'text' : 'password'"
+              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="[rules.required, rules.min]"
+              :type="show2 ? 'text' : 'password'"
               name="input-10-1"
               label="Reenter Password"
               hint="At least 8 characters"
               counter
               solo
-              @click:append="show1 = !show1"
+              @click:append="show2 = !show2"
             ></v-text-field>
           </v-card-actions>
           <v-card-actions>
@@ -165,14 +166,14 @@
         <v-menu offset-y class open-on-hover>
           <template v-slot:activator="{ on, attrs }">
             <div class="d-flex flex-row align-center mr-0" v-bind="attrs" v-on="on" fluid>
-              <v-avatar class="ml-2" :color="colorTheme" size="36">
+              <v-avatar class="ml-2" size="36">
                 <v-icon>mdi-cog</v-icon>
               </v-avatar>
             </div>
           </template>
           <v-list>
             <v-list-item>
-              <v-switch v-model="$vuetify.theme.dark" @change="changeMode" label="Dark Mode" :color="colorTheme" />
+              <v-switch v-model="$vuetify.theme.dark" @change="changeMode" label="Dark Mode"/>
             </v-list-item>
             <v-list-item>
               <v-btn @click="logout()">
@@ -187,7 +188,7 @@
           </v-list>
         </v-menu>
       </v-app-bar>
-      <v-sheet class="pb-6 mb-n3">
+      <v-sheet class="pb-6 mb-6">
         <v-container style="height: 1500px;">
           <v-img
           class="mx-auto"
@@ -200,13 +201,13 @@
               <v-col cols="3">
                 <v-img src="https://www.indiewire.com/wp-content/uploads/2016/08/no-face.jpg"/>
                 <v-row justify="center" class="my-6">
-                  <v-date-picker v-model="picker" width="90%"></v-date-picker>
+                  <v-date-picker width="90%"></v-date-picker>
                 </v-row>
               </v-col>
               <v-col cols="6">
-                <v-div class="text-h4 mb-12">
+                <div class="text-h4 mb-12">
                   life right now
-                </v-div>
+                </div>
                 <v-divider class="my-2"></v-divider>
                 <div class="text-h5">
                   important links!!!!!!!!
@@ -237,7 +238,6 @@
                     sort-by="date"
                     :items-per-page="5"
                     class="elevation-1"
-                    :page.sync="page"
                     hide-default-footer
                   >
                   <template v-slot:header.complete>
@@ -252,7 +252,6 @@
                   </template>
                   <v-pagination
                     v-model="page"
-                    :length="pageCount"
                   ></v-pagination>
                   </v-data-table>
                 </div>
@@ -290,7 +289,7 @@
 </template>
 
 <script>
-  // import axios from 'axios'
+  import axios from 'axios'
   export default {
     name: 'Home',
     
@@ -299,21 +298,23 @@
         greeting: '',
         timestamp: '',
         usersname: 'Tristan',
+        email: '',
+        show: '',
+        show1: '',
+        show2: '',
+        password: '',
+        storeHash: '',
+        loading4: '',
+        Name: '',
+        password1: '',
+        password2: '',
+        page: '',
+        
         user: 1,
         dark: true,
         loginPopup: true,
         signupPopup: false,
         rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => (`The email and password you entered don't match`),
-          email: value => {
-            const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            return pattern.test(value) || 'Invalid e-mail.'
-          },
-          passwordMatch: (password1, password2) => {
-            return password1 == password2
-          }
         },
         headers: [
           {
@@ -352,28 +353,50 @@
         window.location.hred = link;
       },
       login(email, password, store) {
-        if (email != null && password != null && !store) {
-          this.loginPopup = false;
+        console.log(email + password + store);
+        var response = axios.post('http://localhost:7000/login/', {email, password})
+            .then(res => console.log(res))
+            .catch(err => console.log('Login Error: ', err))
+        if (response.data.status == 200) {
+          this.usersname = response.data;
+          loginPopup = false;
         }
+        // if (store) {
+        //   localStorage.setItem('calendario_user_data', response);
+        // }
       },
       logout() {
         this.loginPopup = true;
       },
       changeMode(mode) {
-        localStorage.setItem('infs3208_dark_mode', mode ? 'true' : 'false');
+        localStorage.setItem('calendario_dark_mode', mode ? 'true' : 'false');
       },
-      // async getUsers() {
-      //   console.log(await axios.get('/users/'))
-      // }
-      
+      getMode() {
+        var mode = localStorage.getItem('calendario_dark_mode');
+        if (mode) {
+          this.$vuetify.theme.dark = true;
+        }
+      },
+      async getUsers() {
+        axios.get('http://localhost:9000/hello').then(resp => {
+          console.log(resp.data)
+        })
+      },
+      getUserData() {
+        var data = localStorage.getItem('calendario_user_data');
+      }
     },
     created() {
       setInterval(() => {
         this.getNow();
       }, 1000)
+      this.getUsers();
     },
     mounted() {
       this.getNow();
+      this.getUsers();
+      this.getMode();
+      this.getUserData();
     }
   }
   

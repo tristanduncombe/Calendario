@@ -1,7 +1,6 @@
-FROM node:lts-alpine as build-stage
-WORKDIR /backend
-
-COPY package*.json ./
-RUN npm install
+FROM node:16 as build
+WORKDIR /app
 COPY . .
-RUN node index.js
+EXPOSE 9000
+ENV TZ=Australia/Brisbane
+RUN yarn install

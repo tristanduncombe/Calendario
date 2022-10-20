@@ -9,6 +9,7 @@ services:
       MYSQL_DATABASE: ./db/database.sql
       MYSQL_USER: php
       MYSQL_PASSWORD: php
+    
     networks:
       - mynet
 
@@ -31,13 +32,18 @@ services:
     container_name: frontend
     ports:
       - "80:80"
-  backedn:
+  backend:
     build:
       context: backend
       dockerfile: Dockerfile
     container_name: backend
     ports:
-      - "9000:80"
+      - "9000"
+    restart: always
+    volumes:
+      - ./backend:/app
+      - /node_modules
+    command: node index.js
 networks:
   mynet:
     driver: bridge
