@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var corsOptions = {
-  origin: "http://localhost:8080",
+  origin: "http://localhost:80",
   methods: ["OPTIONS", "GET", "POST"],
 };
 
