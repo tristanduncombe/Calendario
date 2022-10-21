@@ -6,22 +6,27 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: MyDBRoot123
-      MYSQL_DATABASE: ./db/database.sql
+      MYSQL_DATABASE: calendario
       MYSQL_USER: php
       MYSQL_PASSWORD: php
-    
+    ports:
+      - "3306:3306"
     networks:
       - mynet
+    restart: unless-stopped
+    volumes:
+      - maria-data:/data/db
 
   phpMyAdmin:
     image: phpmyadmin:latest
     container_name: phpMyAdmin
+    restart: unless-stopped
     depends_on:
       - mysql
     environment:
       PMA_HOST: mysql
     ports:
-      - "8080:80"
+      - "8082:80"
     networks:
       - mynet
 
@@ -30,20 +35,30 @@ services:
       context: frontend
       dockerfile: Dockerfile
     container_name: frontend
+    restart: unless-stopped
     ports:
       - "80:80"
+
   backend:
     build:
       context: backend
       dockerfile: Dockerfile
     container_name: backend
     ports:
-      - "9000"
-    restart: always
+      - "9000:9000"
+    networks:
+      - mynet
+    restart: unless-stopped
+    depends_on: 
+      - mysql
     volumes:
       - ./backend:/app
       - /node_modules
-    command: node index.js
+    command: npm start
 networks:
   mynet:
     driver: bridge
+
+volumes:
+  maria-data:
+    driver: local
