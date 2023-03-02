@@ -270,7 +270,7 @@
         elevate-on-scroll
       >
         <v-icon class="mr-1">mdi-calendar</v-icon> <div class="text-h5">Calendario</div> 
-        <v-toolbar-title class="ml-4" v-text="greeting + ', ' + usersname + '! '"></v-toolbar-title>
+        <v-toolbar-title class="ml-4">{{ greeting }}, {{ username }}!</v-toolbar-title>
 
         <v-spacer></v-spacer>
 
